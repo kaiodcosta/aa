@@ -1,0 +1,10 @@
+{
+  "identifier": "blog.mataroa.publisher",
+  "name": "Mataroa Publisher",
+  "content_type": "Extension",
+  "area": "editor-editor",
+  "url": "index.html",
+  "version": "1.0.0",
+  "description": "Publica notas do Standard Notes no Mataroa.blog",
+  "permission_required": false
+}
