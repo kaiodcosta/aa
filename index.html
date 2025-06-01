@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Mataroa Publisher</title>
+  <script src="main.js"></script>
+</head>
+<body>
+  <div style="padding: 1em;">
+    <label>URL do blog (https://SEUBLOG.mataroa.blog):<br>
+      <input type="text" id="url" style="width: 100%;" />
+    </label><br><br>
+
+    <label>Token da API:<br>
+      <input type="text" id="token" style="width: 100%;" />
+    </label><br><br>
+
+    <button onclick="saveSettings()">Salvar Configurações</button>
+    <hr>
+
+    <button onclick="sendPost()">📤 Publicar</button>
+    <button onclick="updatePost()">🔄 Atualizar</button>
+  </div>
+
+  <script>
+    const editor = window.parent;
+
+    document.getElementById("url").value = localStorage.getItem("mataroa_url") || "";
+    document.getElementById("token").value = localStorage.getItem("mataroa_token") || "";
+
+    function saveSettings() {
+      localStorage.setItem("mataroa_url", document.getElementById("url").value);
+      localStorage.setItem("mataroa_token", document.getElementById("token").value);
+      alert("Salvo!");
+    }
+
+    async function sendPost() {
+      const note = await editor.postMessage({ action: "get-note" });
+      publishToMataroa(note.item.title, note.item.content);
+    }
+
+    async function updatePost() {
+      const note = await editor.postMessage({ action: "get-note" });
+      updateMataroaPost(note.item.title, note.item.content);
+    }
+  </script>
+</body>
+</html>
